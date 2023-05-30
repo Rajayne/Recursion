@@ -24,7 +24,19 @@ function everyOther(str, i = 0) {
 
 /** isPalindrome: checks whether a string is a palindrome or not. */
 
-function isPalindrome(str) {}
+function isPalindrome(str, start = 0, end = str.length - 1) {
+  // If one value in string
+  if (start == end) {
+    return true;
+  }
+  // If start and end value does not match
+  if (str[start] != str[end]) {
+    return false;
+  }
+  // If more than two values in string, recursive case
+  if (start < end + 1) return isPalindrome(str, start + 1, end - 1);
+  return true;
+}
 
 /** findIndex: return the index of val in arr (or -1 if val is not present). */
 
@@ -53,8 +65,3 @@ module.exports = {
   gatherStrings,
   binarySearch,
 };
-
-console.log(longest(["hello", "hi", "hola"])); // 5
-console.log(longest(["abcdefg", "hijklmnop", "qrs", "tuv", "wx", "y", "z"])); // 9
-console.log(longest(["a", "b", "c", "d", "e"])); // 1
-console.log(longest(["abcde"])); //5
