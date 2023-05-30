@@ -40,7 +40,17 @@ function isPalindrome(str, start = 0, end = str.length - 1) {
 
 /** findIndex: return the index of val in arr (or -1 if val is not present). */
 
-function findIndex(arr, val) {}
+function findIndex(arr, val, i = 0) {
+  console.log(val, i, arr[i]);
+  if (i < arr.length) {
+    if (arr[i] === val) {
+      return i;
+    } else {
+      return findIndex(arr, val, i + 1);
+    }
+  }
+  return -1;
+}
 
 /** revString: return a copy of a string, but in reverse. */
 
@@ -65,3 +75,7 @@ module.exports = {
   gatherStrings,
   binarySearch,
 };
+let animals = ["duck", "cat", "pony", "cat"];
+console.log(findIndex(animals, "duck")); // 0
+console.log(findIndex(animals, "cat")); // 1
+console.log(findIndex(animals, "pony")); // 2
