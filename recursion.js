@@ -54,7 +54,10 @@ function findIndex(arr, val, i = 0) {
 
 /** revString: return a copy of a string, but in reverse. */
 
-function revString(str) {}
+function revString(str, end = str.length - 1) {
+  if (end < 0) return "";
+  return str[end] + revString(str, (end -= 1));
+}
 
 /** gatherStrings: given an object, return an array of all of the string values. */
 
@@ -75,7 +78,3 @@ module.exports = {
   gatherStrings,
   binarySearch,
 };
-let animals = ["duck", "cat", "pony", "cat"];
-console.log(findIndex(animals, "duck")); // 0
-console.log(findIndex(animals, "cat")); // 1
-console.log(findIndex(animals, "pony")); // 2
