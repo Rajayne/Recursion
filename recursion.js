@@ -80,7 +80,21 @@ function gatherStrings(obj) {
 /** binarySearch: given a sorted array of numbers, and a value,
  * return the index of that value (or -1 if val is not present). */
 
-function binarySearch(arr, val) {}
+function binarySearch(arr, val, leftIdx = 0, rightIdx = arr.length - 1) {
+  if (leftIdx <= rightIdx) {
+    let middleIdx = Math.floor((leftIdx + rightIdx) / 2);
+    let middleVal = arr[middleIdx];
+    console.log(middleIdx, middleVal);
+    if (middleVal < val) {
+      return binarySearch(arr, val, (leftIdx = middleIdx + 1), rightIdx);
+    } else if (middleVal > val) {
+      return binarySearch(arr, val, leftIdx, (rightIdx = middleIdx - 1));
+    } else {
+      return middleIdx;
+    }
+  }
+  return -1;
+}
 
 module.exports = {
   product,
@@ -92,24 +106,3 @@ module.exports = {
   gatherStrings,
   binarySearch,
 };
-
-let nestedObj = {
-  firstName: "Lester",
-  favoriteNumber: 22,
-  moreData: {
-    lastName: "Testowitz",
-  },
-  funFacts: {
-    moreStuff: {
-      anotherNumber: 100,
-      deeplyNestedString: {
-        almostThere: {
-          success: "you made it!",
-        },
-      },
-    },
-    favoriteString: "nice!",
-  },
-};
-
-gatherStrings(nestedObj);
