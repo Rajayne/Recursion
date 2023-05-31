@@ -61,7 +61,21 @@ function revString(str, end = str.length - 1) {
 
 /** gatherStrings: given an object, return an array of all of the string values. */
 
-function gatherStrings(obj) {}
+function gatherStrings(obj) {
+  if (!obj instanceof Object) {
+    throw new Error("Expected an object!");
+  }
+
+  const arr = [];
+  for (const key in obj) {
+    if (typeof obj[key] === "string") {
+      arr.push(obj[key]);
+    } else if (typeof obj[key] === "object") {
+      arr.push(...gatherStrings(obj[key]));
+    }
+  }
+  return arr;
+}
 
 /** binarySearch: given a sorted array of numbers, and a value,
  * return the index of that value (or -1 if val is not present). */
@@ -78,3 +92,24 @@ module.exports = {
   gatherStrings,
   binarySearch,
 };
+
+let nestedObj = {
+  firstName: "Lester",
+  favoriteNumber: 22,
+  moreData: {
+    lastName: "Testowitz",
+  },
+  funFacts: {
+    moreStuff: {
+      anotherNumber: 100,
+      deeplyNestedString: {
+        almostThere: {
+          success: "you made it!",
+        },
+      },
+    },
+    favoriteString: "nice!",
+  },
+};
+
+gatherStrings(nestedObj);
